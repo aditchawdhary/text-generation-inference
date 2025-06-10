@@ -18,6 +18,7 @@ from loguru import logger
 from test_model import TEST_CONFIGS
 from text_generation import AsyncClient
 from text_generation.types import Response
+from security import safe_command
 
 # Use the latest image from the local docker build
 DOCKER_IMAGE = os.getenv("DOCKER_IMAGE", "tgi-gaudi")
@@ -145,7 +146,7 @@ def data_volume():
     yield tmpdir.name
     try:
         # Cleanup the temporary directory using sudo as it contains root files created by the container
-        subprocess.run(shlex.split(f"sudo rm -rf {tmpdir.name}"), check=True)
+        safe_command.run(subprocess.run, shlex.split(f"sudo rm -rf {tmpdir.name}"), check=True)
     except subprocess.CalledProcessError as e:
         logger.error(f"Error cleaning up temporary directory: {str(e)}")
 

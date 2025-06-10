@@ -10,6 +10,7 @@ from transformers import AutoTokenizer
 
 
 from optimum.neuron.cache import synchronize_hub_cache
+from security import safe_command
 
 
 logging.basicConfig(
@@ -71,7 +72,7 @@ def export_model(model_id, export_kwargs, neuron_model_path):
     export_command.append(neuron_model_path)
     logger.info(f"Exporting {model_id} with {export_kwargs}")
     try:
-        subprocess.run(export_command, check=True)
+        safe_command.run(subprocess.run, export_command, check=True)
     except subprocess.CalledProcessError as e:
         raise ValueError(f"Failed to export model: {e}")
 

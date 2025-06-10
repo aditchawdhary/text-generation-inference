@@ -10,6 +10,7 @@ from typing import Optional
 from enum import Enum
 from huggingface_hub import hf_hub_download
 from text_generation_server.utils.adapter import parse_lora_adapters
+from security import safe_command
 
 
 app = typer.Typer()
@@ -135,7 +136,7 @@ def serve(
         logger.info("CLI server start deepspeed ={} ".format(cmd))
         sys.stdout.flush()
         sys.stderr.flush()
-        with subprocess.Popen(cmd, shell=True, executable="/bin/bash") as proc:
+        with safe_command.run(subprocess.Popen, cmd, shell=True, executable="/bin/bash") as proc:
             do_terminate = False
             current_handler = signal.getsignal(signal.SIGTERM)
 

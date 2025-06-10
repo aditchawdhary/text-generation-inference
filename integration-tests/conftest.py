@@ -1,3 +1,5 @@
+from security import safe_command
+
 pytest_plugins = ["fixtures.neuron.service", "fixtures.neuron.export_models"]
 # ruff: noqa: E402
 from _pytest.fixtures import SubRequest
@@ -521,8 +523,7 @@ async def launcher(error_log):
             # with tempfile.TemporaryFile("w+") as tmp:
             # We'll output stdout/stderr to a temporary file. Using a pipe
             # cause the process to block until stdout is read.
-        with subprocess.Popen(
-            args,
+        with safe_command.run(subprocess.Popen, args,
             stdout=error_log,
             stderr=subprocess.STDOUT,
             env=env,
