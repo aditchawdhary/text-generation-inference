@@ -37,8 +37,8 @@ from transformers.image_utils import (
 )
 from io import BytesIO
 import base64
-import requests
 from transformers import TensorType, is_torch_available
+from security import safe_requests
 
 
 IDEFICS_STANDARD_MEAN = [0.48145466, 0.4578275, 0.40821073]
@@ -199,7 +199,7 @@ class IdeficsImageProcessor(BaseImageProcessor):
             image = image_url_or_urls
 
             if image.startswith("http://") or image.startswith("https://"):
-                response = requests.get(
+                response = safe_requests.get(
                     image_url_or_urls, stream=True, headers=headers, timeout=(1, 5)
                 )
                 response.raise_for_status()
