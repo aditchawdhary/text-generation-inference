@@ -4,7 +4,7 @@ import os
 import requests
 
 if not os.path.exists("pg103.txt"):
-    response = requests.get("https://www.gutenberg.org/cache/epub/103/pg103.txt")
+    response = requests.get("https://www.gutenberg.org/cache/epub/103/pg103.txt", timeout=60)
     with open("pg103.txt", "w") as f:
         f.write(response.text)
 

@@ -70,7 +70,7 @@ async def test_flash_starcoder2_with_hugcode_adapter(
                 "details": True,
             },
         },
-    )
+    timeout=60)
 
     assert response.status_code == 200
     data = response.json()

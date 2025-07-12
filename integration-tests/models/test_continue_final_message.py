@@ -31,7 +31,7 @@ def test_llama_completion_single_prompt(
         },
         headers=llama_continue_final_message.headers,
         stream=False,
-    )
+    timeout=60)
     response = response.json()
     print(response)
     assert len(response["choices"]) == 1
@@ -64,7 +64,7 @@ def test_llama_completion_single_prompt_continue(
         },
         headers=llama_continue_final_message.headers,
         stream=False,
-    )
+    timeout=60)
     response = response.json()
     print(response)
     assert len(response["choices"]) == 1

@@ -36,7 +36,7 @@ def test_flash_llama_completion_single_prompt(
         },
         headers=flash_llama_completion.headers,
         stream=False,
-    )
+    timeout=60)
     response = response.json()
     assert len(response["choices"]) == 1
     assert (
@@ -132,7 +132,7 @@ def test_flash_llama_completion_many_prompts(flash_llama_completion, response_sn
         },
         headers=flash_llama_completion.headers,
         stream=False,
-    )
+    timeout=60)
     response = response.json()
     assert len(response["choices"]) == 4
 

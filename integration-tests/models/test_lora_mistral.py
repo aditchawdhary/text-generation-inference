@@ -46,7 +46,7 @@ async def test_lora_mistral_without_adapter(lora_mistral, response_snapshot):
                 "details": True,
             },
         },
-    )
+    timeout=60)
 
     assert response.status_code == 200
     data = response.json()
@@ -71,7 +71,7 @@ async def test_lora_mistral_with_dbpedia_adapter(lora_mistral, response_snapshot
                 "details": True,
             },
         },
-    )
+    timeout=60)
 
     assert response.status_code == 200
     data = response.json()
@@ -97,7 +97,7 @@ async def test_lora_mistral_with_customer_support_adapter(
                 "details": True,
             },
         },
-    )
+    timeout=60)
 
     assert response.status_code == 200
     data = response.json()
@@ -123,7 +123,7 @@ async def test_lora_mistral_without_customer_support_adapter(
                 "details": True,
             },
         },
-    )
+    timeout=60)
 
     assert response.status_code == 200
     data = response.json()

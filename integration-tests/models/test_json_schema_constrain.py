@@ -93,7 +93,7 @@ async def test_json_schema_basic(model_fixture, response_snapshot):
                 "value": {"name": "person", "strict": True, "schema": person_schema},
             },
         },
-    )
+    timeout=60)
 
     result = response.json()
 
@@ -135,7 +135,7 @@ async def test_json_schema_complex(model_fixture, response_snapshot):
                 },
             },
         },
-    )
+    timeout=60)
 
     result = response.json()
 
@@ -177,7 +177,7 @@ async def test_json_schema_stream(model_fixture, response_snapshot):
             "stream": True,
         },
         stream=True,
-    )
+    timeout=60)
 
     chunks = []
     content_generated = ""
