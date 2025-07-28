@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """PyTorch OPT model."""
-
-import random
 from typing import List, Optional, Tuple, Union
 
 import torch
@@ -35,6 +33,7 @@ from text_generation_server.layers import (
     TensorParallelRowLinear,
     SpeculativeHead,
 )
+import secrets
 
 EPS = 1e-5
 
@@ -650,7 +649,7 @@ class OPTDecoder(OPTPreTrainedModel):
             if output_hidden_states:
                 all_hidden_states += (hidden_states,)
 
-            dropout_probability = random.uniform(0, 1)
+            dropout_probability = secrets.SystemRandom().uniform(0, 1)
             if self.training and (dropout_probability < self.layerdrop):
                 continue
 

@@ -1,3 +1,5 @@
+import secrets
+
 pytest_plugins = ["fixtures.neuron.service", "fixtures.neuron.export_models"]
 # ruff: noqa: E402
 from _pytest.fixtures import SubRequest
@@ -26,7 +28,6 @@ import contextlib
 import json
 import math
 import os
-import random
 import subprocess
 import sys
 import tempfile
@@ -450,8 +451,8 @@ async def launcher(error_log):
         cuda_graphs: Optional[List[int]] = None,
         attention: Optional[str] = None,
     ):
-        port = random.randint(8000, 10_000)
-        master_port = random.randint(10_000, 20_000)
+        port = secrets.SystemRandom().randint(8000, 10_000)
+        master_port = secrets.SystemRandom().randint(10_000, 20_000)
 
         shard_uds_path = (
             f"/tmp/tgi-tests-{model_id.split('/')[-1]}-{num_shard}-{quantize}-server"
@@ -553,7 +554,7 @@ async def launcher(error_log):
         cuda_graphs: Optional[List[int]] = None,
         attention: Optional[str] = None,
     ):
-        port = random.randint(8000, 10_000)
+        port = secrets.SystemRandom().randint(8000, 10_000)
 
         args = ["--model-id", model_id, "--env"]
 

@@ -2,7 +2,6 @@ import asyncio
 import contextlib
 import logging
 import os
-import random
 import shutil
 import sys
 import tempfile
@@ -15,6 +14,7 @@ import pytest
 from aiohttp import ClientConnectorError, ClientOSError, ServerDisconnectedError
 from docker.errors import NotFound
 from huggingface_hub import AsyncInferenceClient, TextGenerationOutput
+import secrets
 
 
 OPTIMUM_CACHE_REPO_ID = "optimum-internal-testing/neuron-testing-cache"
@@ -120,7 +120,7 @@ def neuron_launcher(event_loop):
         model_name_or_path: str,
         trust_remote_code: bool = False,
     ):
-        port = random.randint(8000, 10_000)
+        port = secrets.SystemRandom().randint(8000, 10_000)
 
         client = docker.from_env()
 
